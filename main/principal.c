@@ -16,11 +16,13 @@
 xQueueHandle Cola_UART;
 
 void app_main (void){
-	nvs_flash_init();
-	iniciarUART();
-	configGPIO();
-	Cola_UART = xQueueCreate(tamCOLA, tamMSN);
-	xTaskCreatePinnedToCore(&log_in, "Log_in", PILA*2, NULL, 5, NULL, 1);
-	xTaskCreatePinnedToCore(&servidorhttp, "tarea_serverHTTP", PILA*2, NULL, 5, NULL, 0);
-
+		nvs_flash_init();
+		iniciarUART();
+		configGPIO();
+		Cola_UART = xQueueCreate(tamCOLA, tamMSN);
+		xTaskCreatePinnedToCore(&log_in, "Log_in", PILA*2, NULL, 5, NULL, 1);
+		vTaskDelete(NULL);
+		for(;;){
+		xTaskCreatePinnedToCore(&servidorhttp, "tarea_serverHTTP", PILA*2, NULL, 5, NULL, 0);
+	}
 }

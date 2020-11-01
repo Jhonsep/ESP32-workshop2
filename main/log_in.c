@@ -37,8 +37,8 @@ void entrada (char *user[8], char *pass[8]){
 void log_in (void *P){
 	char userok[8], passok[8];
 	const char usercheck[8]={"jhonsepv"}, passcheck[8]={"password"};
-	entrada(&userok, &passok);
 	uint8_t ok = 0;
+	entrada(&userok, &passok);
 	while (!ok){
 		if ((usercheck == userok) && (passcheck == passok)){
 			uart_write_bytes(UART_NUM_0, (const char*) "\n\r--- Acceso concedido ---", 28);
@@ -50,6 +50,5 @@ void log_in (void *P){
 			for (int i=0;i < strlen(passok);i++)passok[i]=0;
 		}
 	}
-	vTaskDelete(NULL);
 }
 
